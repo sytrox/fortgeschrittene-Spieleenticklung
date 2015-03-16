@@ -1,0 +1,17 @@
+build/
+dist/
+test/
+createNewKey.cmd
+installAndLogcat.cmd
+signAndOptimize.cmd
+/bin/
+/assets.jmp
+/lwjgl64.dll
+/OpenAL64.dll
+mobile/bin/
+mobile/gen/
+mobile/libs/
+mobile/assets/
+logs/
+nbproject/private/private.properties
+mobile/local.properties

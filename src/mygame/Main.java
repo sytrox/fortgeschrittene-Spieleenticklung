@@ -38,6 +38,7 @@ public class Main extends SimpleApplication {
     private Geometry geom;
     private float tpfCounter = 0;
     private Material godrayMatarial;
+    //the main
 
     public static void main(String[] args) {
         Main app = new Main();
@@ -51,8 +52,6 @@ public class Main extends SimpleApplication {
 
         Geometry quad = new Geometry("box", new Quad(settings.getWidth(), settings.getHeight()));
         offTex = setupOffscreenView();
-
-
         b = new Sphere(20, 20, 1);
         geom = new Geometry("Sphere", b);
 
