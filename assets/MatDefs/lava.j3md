@@ -1,0 +1,23 @@
+MaterialDef lava {
+    MaterialParameters {
+        Vector4 test
+        Float fogDensity
+        Vector3 fogColor
+        Float time
+        Vector2 resolution
+        Vector2 uvScale
+        Texture2D texture1
+        Texture2D texture2
+        
+    }
+    Technique {
+        WorldParameters {
+            WorldViewProjectionMatrix
+            ProjectionMatrix
+            inPosition
+            inTexCoord
+        }
+        VertexShader GLSL150:   Shaders/lava.vert
+        FragmentShader GLSL150: Shaders/lava.frag
+    }
+}

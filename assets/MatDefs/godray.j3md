@@ -1,0 +1,21 @@
+MaterialDef godray {
+    MaterialParameters {
+        Float exposure
+        Float decay
+        Float density
+        Float weight
+        Vector2 lightPositionOnScreen
+        Texture2D firstPass
+        
+    }
+    Technique {
+        WorldParameters {
+            WorldViewProjectionMatrix
+            ProjectionMatrix
+            inPosition
+            inTexCoord
+        }
+        VertexShader GLSL150:   Shaders/godray.vert
+        FragmentShader GLSL150: Shaders/godray.frag
+    }
+}
