@@ -5,7 +5,7 @@ uniform float m_weight;
 uniform vec2 m_lightPositionOnScreen;
 uniform sampler2D m_firstPass;
 varying vec2 vUv;
-const int NUM_SAMPLES = 100 ;
+const int NUM_SAMPLES = 80 ;
 
 void main()
 {
@@ -13,7 +13,7 @@ void main()
     vec2 textCoo = vUv;
     deltaTextCoord *= 1.0 /  float(NUM_SAMPLES) * m_density;
     float illuminationDecay = 1.0;
-
+    gl_FragColor = vec4(0,0,0,0);
     for(int i=0; i < NUM_SAMPLES ; i++)
     {
              textCoo -= deltaTextCoord;
@@ -26,5 +26,4 @@ void main()
              illuminationDecay *= m_decay;
      }
      gl_FragColor *= m_exposure;
-
 }

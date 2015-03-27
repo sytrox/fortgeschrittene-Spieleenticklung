@@ -1,0 +1,7 @@
+<root>
+    <screen>
+
+	<method name="setWindowTitle" param0="Curves - Game Finished" />
+            
+    </screen>
+</root>

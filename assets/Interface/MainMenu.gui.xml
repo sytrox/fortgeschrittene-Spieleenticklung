@@ -1,0 +1,27 @@
+<root>
+    <screen>
+
+	<method name="setWindowTitle" param0="Curves - Main Menu" />
+	<component type="Label" id="WelcomeLabel" position="10%,0%" dimensions="80%,30%" >
+	    <method name="setText" param0="Welcome to Curves" />
+	    <method name="setTextAlign" param0="Center" />
+	    <method name="setTextVAlign" param0="Center" />
+	    <!-- <method name="setFontSize" param0="30" /> -->
+	</component>
+
+	<component type="Button" id="StartButton" position="20%,40%" dimensions="30%,10%" >
+	    <eventMethod name="onButtonMouseLeftUp" stateMethodName="startClick" />
+	    <component type="Label" id="StartButtonText" position="0%,0%" dimensions="100%,100%" >
+		<method name="setText" param0="START" />
+		<method name="setIgnoreMouse" param0="true" />
+		<method name="setIsResizable" param0="false" />
+		<method name="setIsMovable" param0="false" />
+		<method name="setTextWrap" param0="NoWrap" />
+		<method name="setTextVAlign" param0="Center" />
+		<method name="setTextAlign" param0="Center" />
+	    </component>
+	</component>
+
+
+    </screen>
+</root>
