@@ -17,7 +17,7 @@ MaterialDef lava {
             inPosition
             inTexCoord
         }
-        VertexShader GLSL150:   Shaders/lava.vert
-        FragmentShader GLSL150: Shaders/lava.frag
+        VertexShader GLSL120:   Shaders/lava.vert
+        FragmentShader GLSL120: Shaders/lava.frag
     }
 }

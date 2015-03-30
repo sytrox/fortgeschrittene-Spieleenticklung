@@ -1,7 +1,7 @@
 varying vec2 vUv;
 uniform mat4 g_WorldViewProjectionMatrix;
-in vec4 inPosition;
-in vec2 inTexCoord;
+attribute vec4 inPosition;
+attribute vec2 inTexCoord;
 
 void main()
 {

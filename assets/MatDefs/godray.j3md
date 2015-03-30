@@ -15,7 +15,7 @@ MaterialDef godray {
             inPosition
             inTexCoord
         }
-        VertexShader GLSL150:   Shaders/godray.vert
-        FragmentShader GLSL150: Shaders/godray.frag
+        VertexShader GLSL120:   Shaders/godray.vert
+        FragmentShader GLSL120: Shaders/godray.frag
     }
 }
