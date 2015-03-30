@@ -1,0 +1,30 @@
+# 3ds Max Wavefront OBJ Exporter v0.94b - (c)2007 guruware
+# File Created: 19.06.2013 21:33:05
+
+newmtl Main_tiles_length_1
+	Ns 18.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 1.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.4950 0.4950 0.4950
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textures\spacsestation-tile-2.jpg
+	map_Kd textures\spacsestation-tile-2.jpg
+	map_bump textures\spacsestation-tile-2-disp.jpg
+	bump textures\spacsestation-tile-2-disp.jpg
+
+newmtl Window_frames
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 1.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.1569 0.1569 0.1569
+	Ks 0.2250 0.2250 0.2250
+	Ke 0.0000 0.0000 0.0000
