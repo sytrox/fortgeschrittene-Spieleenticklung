@@ -30,7 +30,7 @@ import mygame.common.Log;
  * @author io
  */
 public class GodrayLight extends Node {
-    
+
     private Node rootNode;
     private Node guiNode;
     private ViewPort viewPort;
@@ -44,7 +44,7 @@ public class GodrayLight extends Node {
     private Camera cam;
     private AssetManager assetManager;
     private Geometry quad;
-    
+
     public GodrayLight(AppSettings settings, Camera cam, AssetManager assetManager, Node rootNode, Node guiNode) {
         this.settings = settings;
         this.cam = cam;
@@ -55,7 +55,8 @@ public class GodrayLight extends Node {
         geometry = new Geometry("Sphere", sphere);
         offTex = setupOffscreenView();
         quad = new Geometry("box", new Quad(settings.getWidth(), settings.getHeight()));
-        
+
+
         lavaMaterial = new Material(assetManager, "MatDefs/lava.j3md");
         Texture tex1 = assetManager.loadTexture("Textures/cloud.png");
         tex1.setWrap(Texture.WrapMode.Repeat);
@@ -73,7 +74,7 @@ public class GodrayLight extends Node {
         //mat2.preload(renderManager);
         geometry.setMaterial(lavaMaterial);
         this.attachChild(geometry);
-        
+
         godrayMatarial = new Material(assetManager, "MatDefs/godray.j3md");
         godrayMatarial.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Additive);
         godrayMatarial.setTexture("firstPass", offTex);
@@ -81,15 +82,15 @@ public class GodrayLight extends Node {
         godrayMatarial.setFloat("decay", 0.95f);
         godrayMatarial.setFloat("density", 1.00f);
         godrayMatarial.setFloat("weight", 15.00f);
-        
+
         quad.setMaterial(godrayMatarial);
         quad.setLocalTranslation(new Vector3f(0, 0, -1000));
         //guiNode.attachChild(quad);
 
     }
-    
+
     private Texture setupOffscreenView() {
-        
+
         viewPort = new ViewPort("godray viewport", cam);
         //offView = getRenderManager().createPostView("Offscreen View", cam);
         getViewPort().setClearFlags(true, true, true);
@@ -98,12 +99,12 @@ public class GodrayLight extends Node {
         FrameBuffer offBuffer = new FrameBuffer(settings.getWidth(), settings.getHeight(), 1);
         // setup framebuffer's texture
         Texture2D offTex = new Texture2D(settings.getWidth(), settings.getHeight(), Image.Format.RGBA8);
-        
+
         offBuffer.setColorTexture(offTex);
         // set viewport to render to offscreen framebuffer
         getViewPort().setOutputFrameBuffer(offBuffer);
         getViewPort().attachScene(rootNode);
-        
+
         return offTex;
     }
 
@@ -113,19 +114,17 @@ public class GodrayLight extends Node {
     public ViewPort getViewPort() {
         return viewPort;
     }
-    
+
     public void update(float tpf) {
-        
         Vector2f pos = new Vector2f();
         pos.x = cam.getScreenCoordinates(this.getLocalTranslation()).x;
         pos.y = cam.getScreenCoordinates(this.getLocalTranslation()).y;
         pos.x = ((pos.x + 1) / settings.getWidth());
         pos.y = ((pos.y + 1) / settings.getHeight());
         godrayMatarial.setVector2("lightPositionOnScreen", pos);
-        Log.debug(geometry.getLocalTranslation() + ".:." + this.getLocalTranslation() + "::" + pos);
         tpfCounter += tpf;
         lavaMaterial.setFloat("time", tpfCounter);
-        if (pos.x < 0 || pos.x > 1 || pos.y < 0 || pos.x > 1) {
+        if (pos.x < 0 || pos.x > 1 || pos.y < 0 || pos.x > 1) {//außerhalb der view (spart renderzeit)
             quad.removeFromParent();
         } else {
             guiNode.attachChild(quad);

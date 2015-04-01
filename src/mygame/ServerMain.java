@@ -8,6 +8,8 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.app.state.AppState;
 import com.jme3.asset.AssetManager;
+import com.jme3.effect.ParticleEmitter;
+import com.jme3.effect.ParticleMesh;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.input.FlyByCamera;
@@ -17,8 +19,10 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.light.DirectionalLight;
+import com.jme3.light.PointLight;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
+import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.ColorRGBA;
 
 import com.jme3.math.Vector2f;
@@ -30,6 +34,7 @@ import com.jme3.network.Server;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
+import com.jme3.scene.BatchNode;
 import com.jme3.scene.CameraNode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
@@ -38,6 +43,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.VertexBuffer;
+import com.jme3.scene.control.AbstractControl;
 import com.jme3.scene.control.CameraControl.ControlDirection;
 
 import com.jme3.scene.shape.Quad;
@@ -75,6 +81,7 @@ import org.lwjgl.opengl.GL12;
  */
 public class ServerMain extends SimpleApplication {
 
+    ParticleEmitter debris;
     private CameraControl cameraControl;
     private CameraNode cameraNode;
     private Node target;
@@ -151,7 +158,10 @@ public class ServerMain extends SimpleApplication {
         inputManager.addMapping("Shoot",
                 new KeyTrigger(KeyInput.KEY_SPACE), // trigger 1: spacebar
                 new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); // trigger 2: left-button click
+        inputManager.addMapping("Move",
+                new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)); // trigger 2: left-button click
         inputManager.addListener(mouseActionListener, "Shoot");
+        inputManager.addListener(mouseActionListener, "Move");
 
         //we dont need that "rendermanager", we define our own cylce in @see simpleRender
 
@@ -193,19 +203,22 @@ public class ServerMain extends SimpleApplication {
         quad.setLocalTranslation(new Vector3f(0, 0, -1000));
         // guiNode.attachChild(quad);
 
-        elephant = assetManager.loadModel("Models/Spacestation/Scifi-structure.j3o");
-        elephant.setLocalScale(0.1f);
-        elephant.move(new Vector3f(0, 3, 0));
+        elephant = assetManager.loadModel("Models/Class II Gallactic Cruiser.j3o");
+        elephant.setLocalScale(0.01f);
+        elephant.move(new Vector3f(3, 3, 3));
+        elephant.setUserData("ID", "fuckyou");
+        elephant.addControl(new ShipControler());
+        clickAbles.attachChild(elephant);
 
-        rootNode.attachChild(elephant);
+        PointLight sun = new PointLight();
+        sun.setPosition(new Vector3f(0, 5, 0));
 
-        DirectionalLight sun = new DirectionalLight();
-        sun.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f).normalizeLocal());
+        //sun.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f).normalizeLocal());
         rootNode.addLight(sun);
 
 
         stateManager.attach(new Menu());
-
+        emitterTransfer();
 
     }
 
@@ -214,6 +227,7 @@ public class ServerMain extends SimpleApplication {
         for (GodrayLight g : godrayLights) {
             g.update(tpf);
         }
+        //debris.emitAllParticles();
     }
 
     @Override
@@ -248,5 +262,47 @@ public class ServerMain extends SimpleApplication {
             }
 
         }
+    }
+
+    private void emitterTransfer() {
+        // init colors
+
+
+
+        debris =
+                new ParticleEmitter("Debris", ParticleMesh.Type.Triangle, 10000);
+        Material debris_mat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
+        debris_mat.getAdditionalRenderState().setBlendMode(BlendMode.AlphaAdditive);
+        debris_mat.setTexture("Texture", assetManager.loadTexture("Textures/lavatile.jpg"));
+        debris.setMaterial(debris_mat);
+
+        //debris.setImagesX(20);
+        //debris.setImagesY(20); // 3x3 texture animation
+        //debris.setRotateSpeed(4);
+        debris.setStartSize(0.05f);
+        debris.setEndSize(0.01f);
+        debris.setLowLife(0.1f);
+        debris.setHighLife(0.8f);
+        debris.setFacingVelocity(true);
+        debris.setSelectRandomImage(true);
+        debris.getParticleInfluencer().setInitialVelocity(new Vector3f(2f, 0f, 0));
+        debris.setStartColor(ColorRGBA.White);
+        debris.setEndColor(ColorRGBA.White);
+        //debris.setGravity(1f, 0.0f, 0);
+        debris.setParticlesPerSec(0f);
+        //node.addControl(new ParticelEmitterControl(800));
+        debris.getParticleInfluencer().setVelocityVariation(1.0f);
+        debris.setGravity(0, 0, 0);
+        rootNode.attachChild(debris);
+
+        rootNode.attachChild(rootNode);
+
+
+        debris.setBatchHint(Spatial.BatchHint.Always);
+
+        debris.emitAllParticles();
+
+        debris.move(0, 8f, 0);
+        //rootNode.detachChild(debris);
     }
 }

@@ -26,6 +26,7 @@ public class MouseActionListener implements ActionListener {
     private Camera cam;
     private Node clickAbles;
     private InputManager inputManager;
+    private ShipControler shipControler;
 
     public MouseActionListener(Node rootNode, Node guiNode, Camera cam, Node clickAbles, InputManager inputManager) {
         this.rootNode = rootNode;
@@ -60,10 +61,24 @@ public class MouseActionListener implements ActionListener {
             }
             // 5. Use the results (we mark the hit object)
             if (results.size() > 0) {
-                Log.debug("läuft");
+                CollisionResult closest = results.getClosestCollision();
+                Log.debug(closest.getGeometry().getParent().getUserData("ID"));
+                shipControler = closest.getGeometry().getParent().getControl(ShipControler.class);
             } else {
             }
         }
+        if (name.equals("Move") && !isPressed) {
+            Vector2f click2d = inputManager.getCursorPosition();
+            Vector3f click3d = cam.getWorldCoordinates(
+                    new Vector2f(click2d.x, click2d.y), 0.0f).clone();
+            Vector3f dir = cam.getWorldCoordinates(
+                    new Vector2f(click2d.x, click2d.y), 1f).subtractLocal(click3d).normalizeLocal();
+            dir = dir.mult(17.0f / dir.y);
+            dir = dir.mult(-1);
+            dir.y = 3.0f;
 
+            shipControler.setNewPosition(dir);
+            Log.debug(dir);
+        }
     }
 }
