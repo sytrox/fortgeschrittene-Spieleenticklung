@@ -34,56 +34,56 @@ public class MainGameState extends GameState {
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
-        super.initialize(stateManager, app);
-        getScreen().parseLayout("Interface/Game.gui.xml", this);
+	super.initialize(stateManager, app);
+	getScreen().parseLayout("Interface/Game.gui.xml", this);
 
 
-        initStars();
+	initStars();
 
 
 
-        initialized = true;
+	initialized = true;
     }
 
     @Override
     public void cleanup() {
-        super.cleanup();
-        // unregister all my listeners, detach all my nodes, etc...
+	super.cleanup();
+	// unregister all my listeners, detach all my nodes, etc...
 
     }
 
     @Override
     public void setEnabled(boolean enabled) {
-        // Pause and unpause
+	// Pause and unpause
     }
 
     // Note that update is only called while the state is both attached and enabled.
     @Override
     public void update(float tpf) {
-        // do the following while game is RUNNING
+	// do the following while game is RUNNING
     }
 
     private void initStars() {
-        for (int j = 0; j < 20; j++) {
-            Vector3f[] lineVerticies = new Vector3f[5000 / 20];
-            for (int i = 0; i < 5000 / 20; i++) {
-                lineVerticies[i] = new Vector3f((float) (i * (Math.random() - 0.5f)), (float) (i * (Math.random() - 0.5f)), (float) (-i * (Math.random())));
-            }
-            plotPoints(lineVerticies, ColorRGBA.Gray, (float) j / 20 + 1);
-        }
+	for (int j = 0; j < 20; j++) {
+	    Vector3f[] lineVerticies = new Vector3f[5000 / 20];
+	    for (int i = 0; i < 2000 / 20; i++) {
+		lineVerticies[i] = new Vector3f((float) (100 * (Math.random() - 0.5f)), (float) (100 * (Math.random() - 0.5f)), (float) (-10 * (Math.random())));
+	    }
+	    plotPoints(lineVerticies, ColorRGBA.Gray, (float) j / 20 + 1);
+	}
     }
 
     public void plotPoints(Vector3f[] lineVerticies, ColorRGBA pointColor, float size) {
-        Mesh mesh = new Mesh();
-        mesh.setMode(Mesh.Mode.Points);
-        mesh.setBuffer(VertexBuffer.Type.Position, 3, BufferUtils.createFloatBuffer(lineVerticies));
-        mesh.setPointSize(size);
-        mesh.updateBound();
-        mesh.updateCounts();
-        Geometry geo = new Geometry("line", mesh);
-        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", pointColor);
-        geo.setMaterial(mat);
-        rootNode.attachChild(geo);
+	Mesh mesh = new Mesh();
+	mesh.setMode(Mesh.Mode.Points);
+	mesh.setBuffer(VertexBuffer.Type.Position, 3, BufferUtils.createFloatBuffer(lineVerticies));
+	mesh.setPointSize(size);
+	mesh.updateBound();
+	mesh.updateCounts();
+	Geometry geo = new Geometry("line", mesh);
+	Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+	mat.setColor("Color", pointColor);
+	geo.setMaterial(mat);
+	rootNode.attachChild(geo);
     }
 }

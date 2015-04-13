@@ -33,7 +33,7 @@ public class MouseActionListener extends AbstractControl implements ActionListen
     private Camera cam;
     private Node clickAbles;
     private InputManager inputManager;
-    private ShipControler shipControler;
+    private ShipController shipControler;
     private boolean select;
     private AssetManager assetManager;
     private final AppSettings settings;
@@ -85,7 +85,7 @@ public class MouseActionListener extends AbstractControl implements ActionListen
             if (results.size() > 0) {
                 CollisionResult closest = results.getClosestCollision();
                 Log.debug(closest.getGeometry().getParent().getUserData("ID"));
-                shipControler = closest.getGeometry().getParent().getControl(ShipControler.class);
+                shipControler = closest.getGeometry().getParent().getControl(ShipController.class);
             } else {
             }
         } else if (name.equals("Shoot") && !isPressed) {
