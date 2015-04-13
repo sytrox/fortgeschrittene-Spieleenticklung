@@ -138,8 +138,8 @@ public class ServerMain extends SimpleApplication {
         cameraNode = new CameraNode("Camera Node", cam);
         cameraNode.setControlDir(ControlDirection.SpatialToCamera);
         target.attachChild(cameraNode);
-        cameraNode.setLocalTranslation(new Vector3f(0, 20, 0));
-        cameraNode.lookAt(target.getLocalTranslation(), Vector3f.UNIT_Z);
+        cameraNode.setLocalTranslation(new Vector3f(0, 0, 20));
+        cameraNode.lookAt(target.getLocalTranslation(), Vector3f.UNIT_Y);
         cameraControl = new CameraControl(target);
         rootNode.addControl(cameraControl);
         rootNode.attachChild(target);
@@ -153,8 +153,8 @@ public class ServerMain extends SimpleApplication {
         inputManager.addMapping("moveRight", new KeyTrigger(KeyInput.KEY_D));
         inputManager.addListener(cameraControl, "moveRight");
 
-        mouseActionListener = new MouseActionListener(rootNode, guiNode, cam, clickAbles, inputManager);
-
+        mouseActionListener = new MouseActionListener(rootNode, guiNode, cam, clickAbles, inputManager, assetManager, settings);
+        rootNode.addControl(mouseActionListener);
         inputManager.addMapping("Shoot",
                 new KeyTrigger(KeyInput.KEY_SPACE), // trigger 1: spacebar
                 new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); // trigger 2: left-button click
@@ -211,7 +211,7 @@ public class ServerMain extends SimpleApplication {
         clickAbles.attachChild(elephant);
 
         PointLight sun = new PointLight();
-        sun.setPosition(new Vector3f(0, 5, 0));
+        sun.setPosition(new Vector3f(0, 0, 5));
 
         //sun.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f).normalizeLocal());
         rootNode.addLight(sun);

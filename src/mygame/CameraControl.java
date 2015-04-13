@@ -24,47 +24,47 @@ public class CameraControl extends AbstractControl implements ActionListener {
     Node cameraNode;
 
     CameraControl(Node cameraNode) {
-	this.cameraNode = cameraNode;
+        this.cameraNode = cameraNode;
     }
 
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-	if (name.equals("moveLeft") && isPressed) {
-	    left = true;
-	} else if (name.equals("moveLeft") && !isPressed) {
-	    left = false;
-	}
-	if (name.equals("moveUp") && isPressed) {
-	    up = true;
-	} else if (name.equals("moveUp") && !isPressed) {
-	    up = false;
-	}
-	if (name.equals("moveRight") && isPressed) {
-	    right = true;
-	} else if (name.equals("moveRight") && !isPressed) {
-	    right = false;
-	}
-	if (name.equals("moveDown") && isPressed) {
-	    down = true;
-	} else if (name.equals("moveDown") && !isPressed) {
-	    down = false;
-	}
+        if (name.equals("moveLeft") && isPressed) {
+            left = true;
+        } else if (name.equals("moveLeft") && !isPressed) {
+            left = false;
+        }
+        if (name.equals("moveUp") && isPressed) {
+            up = true;
+        } else if (name.equals("moveUp") && !isPressed) {
+            up = false;
+        }
+        if (name.equals("moveRight") && isPressed) {
+            right = true;
+        } else if (name.equals("moveRight") && !isPressed) {
+            right = false;
+        }
+        if (name.equals("moveDown") && isPressed) {
+            down = true;
+        } else if (name.equals("moveDown") && !isPressed) {
+            down = false;
+        }
     }
 
     @Override
     protected void controlUpdate(float tpf) {
-	if (left) {
-	    cameraNode.move(tpf * speed, 0f, 0f);
-	}
-	if (right) {
-	    cameraNode.move(-tpf * speed, 0f, 0f);
-	}
-	if (up) {
-	    cameraNode.move(0f, 0f, tpf * speed);
-	}
-	if (down) {
-	    cameraNode.move(0f, 0f, -tpf * speed);
-	}
+        if (left) {
+            cameraNode.move(-tpf * speed, 0f, 0f);
+        }
+        if (right) {
+            cameraNode.move(tpf * speed, 0f, 0f);
+        }
+        if (up) {
+            cameraNode.move(0f, tpf * speed, 0f);
+        }
+        if (down) {
+            cameraNode.move(0f, -tpf * speed, 0f);
+        }
     }
 
     @Override

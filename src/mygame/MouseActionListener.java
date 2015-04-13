@@ -4,22 +4,29 @@
  */
 package mygame;
 
+import com.jme3.asset.AssetManager;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
+import com.jme3.material.RenderState;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.renderer.RenderManager;
+import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
+import com.jme3.scene.control.AbstractControl;
+import com.jme3.system.AppSettings;
+import com.jme3.ui.Picture;
 import mygame.common.Log;
 
 /**
  *
  * @author io
  */
-public class MouseActionListener implements ActionListener {
+public class MouseActionListener extends AbstractControl implements ActionListener {
 
     private Node rootNode;
     private Node guiNode;
@@ -27,18 +34,33 @@ public class MouseActionListener implements ActionListener {
     private Node clickAbles;
     private InputManager inputManager;
     private ShipControler shipControler;
+    private boolean select;
+    private AssetManager assetManager;
+    private final AppSettings settings;
+    private Picture pic;
 
-    public MouseActionListener(Node rootNode, Node guiNode, Camera cam, Node clickAbles, InputManager inputManager) {
+    public MouseActionListener(Node rootNode, Node guiNode, Camera cam, Node clickAbles, InputManager inputManager, AssetManager assetManager, AppSettings settings) {
         this.rootNode = rootNode;
         this.guiNode = guiNode;
         this.cam = cam;
         this.clickAbles = clickAbles;
         this.inputManager = inputManager;
+        this.assetManager = assetManager;
+        this.settings = settings;
+        pic = new Picture("HUD Picture");
+        pic.setImage(assetManager, "Textures/selectBox.png", true);
+        pic.getMaterial().getAdditionalRenderState().setFaceCullMode(RenderState.FaceCullMode.Off);
     }
 
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-        if (name.equals("Shoot") && !isPressed) {
+        if (name.equals("Shoot") && isPressed) {
+            select = true;
+
+            pic.setPosition(inputManager.getCursorPosition().x, inputManager.getCursorPosition().y);
+
+
+            guiNode.attachChild(pic);
             Log.debug("click");
             // 1. Reset results list.
             CollisionResults results = new CollisionResults();
@@ -66,6 +88,9 @@ public class MouseActionListener implements ActionListener {
                 shipControler = closest.getGeometry().getParent().getControl(ShipControler.class);
             } else {
             }
+        } else if (name.equals("Shoot") && !isPressed) {
+            select = false;
+            pic.removeFromParent();
         }
         if (name.equals("Move") && !isPressed) {
             Vector2f click2d = inputManager.getCursorPosition();
@@ -73,12 +98,31 @@ public class MouseActionListener implements ActionListener {
                     new Vector2f(click2d.x, click2d.y), 0.0f).clone();
             Vector3f dir = cam.getWorldCoordinates(
                     new Vector2f(click2d.x, click2d.y), 1f).subtractLocal(click3d).normalizeLocal();
-            dir = dir.mult(17.0f / dir.y);
+            dir = dir.mult(17.0f / dir.z);
             dir = dir.mult(-1);
-            dir.y = 3.0f;
+            dir = dir.add(cam.getLocation());
+            dir.z = 3.0f;
 
             shipControler.setNewPosition(dir);
             Log.debug(dir);
+
         }
+    }
+
+    @Override
+    protected void controlUpdate(float tpf) {
+        if (select) {
+            pic.setWidth(inputManager.getCursorPosition().x - pic.getLocalTranslation().x);
+            pic.setHeight(inputManager.getCursorPosition().y - pic.getLocalTranslation().y);
+            float x = Math.abs(inputManager.getCursorPosition().x - pic.getLocalTranslation().x);
+            float y = Math.abs(inputManager.getCursorPosition().y - pic.getLocalTranslation().y);
+            Log.debug(x + "::" + y);
+
+        }
+
+    }
+
+    @Override
+    protected void controlRender(RenderManager rm, ViewPort vp) {
     }
 }

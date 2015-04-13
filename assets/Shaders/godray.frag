@@ -5,7 +5,7 @@ uniform float m_weight;
 uniform vec2 m_lightPositionOnScreen;
 uniform sampler2D m_firstPass;
 varying vec2 vUv;
-const int NUM_SAMPLES = 80 ;
+const int NUM_SAMPLES = 100 ;
 
 void main()
 {

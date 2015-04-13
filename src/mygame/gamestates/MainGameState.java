@@ -67,7 +67,7 @@ public class MainGameState extends GameState {
         for (int j = 0; j < 20; j++) {
             Vector3f[] lineVerticies = new Vector3f[5000 / 20];
             for (int i = 0; i < 5000 / 20; i++) {
-                lineVerticies[i] = new Vector3f((float) (i * (Math.random() - 0.5f)), (float) (-i * (Math.random())), (float) (i * (Math.random() - 0.5f)));
+                lineVerticies[i] = new Vector3f((float) (i * (Math.random() - 0.5f)), (float) (i * (Math.random() - 0.5f)), (float) (-i * (Math.random())));
             }
             plotPoints(lineVerticies, ColorRGBA.Gray, (float) j / 20 + 1);
         }
