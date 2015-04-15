@@ -29,7 +29,7 @@ public class ShipController extends AbstractControl {
 
     public ShipController() {
 	super();
-	newPosition = new Vector3f();
+	newPosition = new Vector3f(0, 0, 3);
 	oldPosition = new Vector3f();
 	diffVector = new Vector3f();
 	lookAtVectorBuff = new Vector3f();
@@ -45,7 +45,7 @@ public class ShipController extends AbstractControl {
 
 	    firstrun = false;
 	}
-	this.spatial.move(getVectorFromAngle(rotationBuffer).mult(-tpf));
+	//this.spatial.move(getVectorFromAngle(rotationBuffer).mult(-tpf));
 	Log.debug("v: " + getVectorFromAngle(rotationBuffer) + " w : " + rotationBuffer);
 	diffVectorBuff = newPosition.subtract(this.spatial.getLocalTranslation());
 	diffVectorBuff.z = 3;

@@ -24,8 +24,8 @@ import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.ColorRGBA;
-
 import com.jme3.math.Vector2f;
+
 import com.jme3.math.Vector3f;
 import com.jme3.math.Vector4f;
 import com.jme3.network.Network;
@@ -48,6 +48,7 @@ import com.jme3.scene.control.CameraControl.ControlDirection;
 
 import com.jme3.scene.shape.Quad;
 import com.jme3.scene.shape.Sphere;
+import com.jme3.scene.shape.Torus;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeContext.Type;
 import com.jme3.system.JmeSystem;
@@ -95,6 +96,7 @@ public class ServerMain extends SimpleApplication {
     private ArrayList<GodrayLight> godrayLights = new ArrayList<>();
     private ArrayList<Geometry> geometries = new ArrayList<>();
     private Material combinedMaterial;
+    private Geometry torus;
 
     public static void main(String[] args) {
 	ServerMain app = new ServerMain();
@@ -108,7 +110,7 @@ public class ServerMain extends SimpleApplication {
 	clickAbles = new Node("clickables");
 	rootNode.attachChild(clickAbles);
 	assetManagerStatic = getAssetManager();
-
+	//http://www.sharecg.com/v/70033/browse/2/YouTube-Video/Space-station-construction-free-3d-model
 	Log.debug(
 		"░░░░░░░░░▄░░░░░░░░░░░░░░▄░░░░\n"
 		+ "░░░░░░░░▌▒█░░░░░░░░░░░▄▀▒▌░░░\n"
@@ -174,13 +176,22 @@ public class ServerMain extends SimpleApplication {
 	Geometry quad = new Geometry("box", new Quad(settings.getWidth(), settings.getHeight()));
 
 
+	Torus mesh = new Torus(100, 100, 0.2f, 1.5f);
+	torus = new Geometry("A shape", mesh); // wrap shape into geometry
+	mesh.scaleTextureCoordinates(new Vector2f(0.5f, .5f));
+	Material mat = new Material(assetManager,
+		"Common/MatDefs/Misc/Unshaded.j3md");
+	Texture cube1Tex = assetManager.loadTexture(
+		"Textures/steel.jpg");
+	cube1Tex.setWrap(Texture.WrapMode.Repeat);
+	mat.setTexture("ColorMap", cube1Tex);
+
+	torus.move(0, 0, 0f);
+	torus.setMaterial(mat);                         // assign material to geometry
+// if you want, transform (move, rotate, scale) the geometry.
+	rootNode.attachChild(torus);
 
 
-	GodrayLight l2 = new GodrayLight(settings, cam, assetManager, rootNode, guiNode);
-	godrayLights.add(l2);
-	rootNode.attachChild(l2);
-	clickAbles.attachChild(l2);
-	l2.move(2, 2, 2);
 
 
 	GodrayLight l3 = new GodrayLight(settings, cam, assetManager, rootNode, guiNode);
@@ -188,14 +199,10 @@ public class ServerMain extends SimpleApplication {
 	rootNode.attachChild(l3);
 	clickAbles.attachChild(l3);
 
-	GodrayLight l = new GodrayLight(settings, cam, assetManager, rootNode, guiNode);
-	godrayLights.add(l);
-	rootNode.attachChild(l);
-	clickAbles.attachChild(l);
-	l.setLocalTranslation(-2, -2, -2);
 
 
 
+	// attach geometry to a node
 
 
 
@@ -224,6 +231,7 @@ public class ServerMain extends SimpleApplication {
 
     @Override
     public void simpleUpdate(float tpf) {
+	torus.rotate(tpf, tpf, tpf);
 	for (GodrayLight g : godrayLights) {
 	    g.update(tpf);
 	}
