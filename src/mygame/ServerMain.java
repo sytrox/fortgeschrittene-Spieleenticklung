@@ -99,218 +99,219 @@ public class ServerMain extends SimpleApplication {
     private Geometry torus;
 
     public static void main(String[] args) {
-	ServerMain app = new ServerMain();
-	AppSettings settings = new AppSettings(true);
-	app.setSettings(settings);
-	app.start();
+        ServerMain app = new ServerMain();
+        AppSettings settings = new AppSettings(true);
+        app.setSettings(settings);
+        app.start();
     }
 
     @Override
     public void simpleInitApp() {
-	clickAbles = new Node("clickables");
-	rootNode.attachChild(clickAbles);
-	assetManagerStatic = getAssetManager();
-	//http://www.sharecg.com/v/70033/browse/2/YouTube-Video/Space-station-construction-free-3d-model
-	Log.debug(
-		"░░░░░░░░░▄░░░░░░░░░░░░░░▄░░░░\n"
-		+ "░░░░░░░░▌▒█░░░░░░░░░░░▄▀▒▌░░░\n"
-		+ "░░░░░░░░▌▒▒█░░░░░░░░▄▀▒▒▒▐░░░\n"
-		+ "░░░░░░░▐▄▀▒▒▀▀▀▀▄▄▄▀▒▒▒▒▒▐░░░\n"
-		+ "░░░░░▄▄▀▒░▒▒▒▒▒▒▒▒▒█▒▒▄█▒▐░░░\n"
-		+ "░░░▄▀▒▒▒░░░▒▒▒░░░▒▒▒▀██▀▒▌░░░\n"
-		+ "░░▐▒▒▒▄▄▒▒▒▒░░░▒▒▒▒▒▒▒▀▄▒▒▌░░\n"
-		+ "░░▌░░▌█▀▒▒▒▒▒▄▀█▄▒▒▒▒▒▒▒█▒▐░░\n"
-		+ "░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒░░░▒▒▒▀▄▌░\n"
-		+ "░▌░▒▄██▄▒▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▌░\n"
-		+ "▀▒▀▐▄█▄█▌▄░▀▒▒░░░░░░░░░░▒▒▒▐░\n"
-		+ "▐▒▒▐▀▐▀▒░▄▄▒▄▒▒▒▒▒▒░▒░▒░▒▒▒▒▌\n"
-		+ "▐▒▒▒▀▀▄▄▒▒▒▄▒▒▒▒▒▒▒▒░▒░▒░▒▒▐░\n"
-		+ "░▌▒▒▒▒▒▒▀▀▀▒▒▒▒▒▒░▒░▒░▒░▒▒▒▌░\n"
-		+ "░▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▒░▒░▒▒▄▒▒▐░░\n"
-		+ "░░▀▄▒▒▒▒▒▒▒▒▒▒▒░▒░▒░▒▄▒▒▒▒▌░░\n"
-		+ "░░░░▀▄▒▒▒▒▒▒▒▒▒▒▄▄▄▀▒▒▒▒▄▀░░░\n"
-		+ "░░░░░░▀▄▄▄▄▄▄▀▀▀▒▒▒▒▒▄▄▀░░░░░\n"
-		+ "░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▀▀░░░░░░░░\n");
+        clickAbles = new Node("clickables");
+        rootNode.attachChild(clickAbles);
+        assetManagerStatic = getAssetManager();
+        //http://www.sharecg.com/v/70033/browse/2/YouTube-Video/Space-station-construction-free-3d-model
+        Log.debug(
+                "░░░░░░░░░▄░░░░░░░░░░░░░░▄░░░░\n"
+                + "░░░░░░░░▌▒█░░░░░░░░░░░▄▀▒▌░░░\n"
+                + "░░░░░░░░▌▒▒█░░░░░░░░▄▀▒▒▒▐░░░\n"
+                + "░░░░░░░▐▄▀▒▒▀▀▀▀▄▄▄▀▒▒▒▒▒▐░░░\n"
+                + "░░░░░▄▄▀▒░▒▒▒▒▒▒▒▒▒█▒▒▄█▒▐░░░\n"
+                + "░░░▄▀▒▒▒░░░▒▒▒░░░▒▒▒▀██▀▒▌░░░\n"
+                + "░░▐▒▒▒▄▄▒▒▒▒░░░▒▒▒▒▒▒▒▀▄▒▒▌░░\n"
+                + "░░▌░░▌█▀▒▒▒▒▒▄▀█▄▒▒▒▒▒▒▒█▒▐░░\n"
+                + "░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒░░░▒▒▒▀▄▌░\n"
+                + "░▌░▒▄██▄▒▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▌░\n"
+                + "▀▒▀▐▄█▄█▌▄░▀▒▒░░░░░░░░░░▒▒▒▐░\n"
+                + "▐▒▒▐▀▐▀▒░▄▄▒▄▒▒▒▒▒▒░▒░▒░▒▒▒▒▌\n"
+                + "▐▒▒▒▀▀▄▄▒▒▒▄▒▒▒▒▒▒▒▒░▒░▒░▒▒▐░\n"
+                + "░▌▒▒▒▒▒▒▀▀▀▒▒▒▒▒▒░▒░▒░▒░▒▒▒▌░\n"
+                + "░▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▒░▒░▒▒▄▒▒▐░░\n"
+                + "░░▀▄▒▒▒▒▒▒▒▒▒▒▒░▒░▒░▒▄▒▒▒▒▌░░\n"
+                + "░░░░▀▄▒▒▒▒▒▒▒▒▒▒▄▄▄▀▒▒▒▒▄▀░░░\n"
+                + "░░░░░░▀▄▄▄▄▄▄▀▀▀▒▒▒▒▒▄▄▀░░░░░\n"
+                + "░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▀▀░░░░░░░░\n");
 
 
-	target = new Node();
-	flyCam.setEnabled(false);
-	cam.setFrustumFar(50000);
+        target = new Node();
+        flyCam.setEnabled(false);
+        cam.setFrustumFar(50000);
 
-	cameraNode = new CameraNode("Camera Node", cam);
-	cameraNode.setControlDir(ControlDirection.SpatialToCamera);
-	target.attachChild(cameraNode);
-	cameraNode.setLocalTranslation(new Vector3f(0, 0, 20));
-	cameraNode.lookAt(target.getLocalTranslation(), Vector3f.UNIT_Y);
-	cameraControl = new CameraControl(target);
-	rootNode.addControl(cameraControl);
-	rootNode.attachChild(target);
+        cameraNode = new CameraNode("Camera Node", cam);
+        cameraNode.setControlDir(ControlDirection.SpatialToCamera);
+        target.attachChild(cameraNode);
+        cameraNode.setLocalTranslation(new Vector3f(0, 0, 20));
+        cameraNode.lookAt(target.getLocalTranslation(), Vector3f.UNIT_Y);
+        cameraControl = new CameraControl(target);
+        rootNode.addControl(cameraControl);
+        rootNode.attachChild(target);
 
-	inputManager.addMapping("moveUp", new KeyTrigger(KeyInput.KEY_W));
-	inputManager.addListener(cameraControl, "moveUp");
-	inputManager.addMapping("moveLeft", new KeyTrigger(KeyInput.KEY_A));
-	inputManager.addListener(cameraControl, "moveLeft");
-	inputManager.addMapping("moveDown", new KeyTrigger(KeyInput.KEY_S));
-	inputManager.addListener(cameraControl, "moveDown");
-	inputManager.addMapping("moveRight", new KeyTrigger(KeyInput.KEY_D));
-	inputManager.addListener(cameraControl, "moveRight");
+        inputManager.addMapping("moveUp", new KeyTrigger(KeyInput.KEY_W));
+        inputManager.addListener(cameraControl, "moveUp");
+        inputManager.addMapping("moveLeft", new KeyTrigger(KeyInput.KEY_A));
+        inputManager.addListener(cameraControl, "moveLeft");
+        inputManager.addMapping("moveDown", new KeyTrigger(KeyInput.KEY_S));
+        inputManager.addListener(cameraControl, "moveDown");
+        inputManager.addMapping("moveRight", new KeyTrigger(KeyInput.KEY_D));
+        inputManager.addListener(cameraControl, "moveRight");
 
-	mouseActionListener = new MouseActionListener(rootNode, guiNode, cam, clickAbles, inputManager, assetManager, settings);
-	rootNode.addControl(mouseActionListener);
-	inputManager.addMapping("Shoot",
-		new KeyTrigger(KeyInput.KEY_SPACE), // trigger 1: spacebar
-		new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); // trigger 2: left-button click
-	inputManager.addMapping("Move",
-		new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)); // trigger 2: left-button click
-	inputManager.addListener(mouseActionListener, "Shoot");
-	inputManager.addListener(mouseActionListener, "Move");
+        mouseActionListener = new MouseActionListener(rootNode, guiNode, cam, clickAbles, inputManager, assetManager, settings);
+        rootNode.addControl(mouseActionListener);
+        inputManager.addMapping("Shoot",
+                new KeyTrigger(KeyInput.KEY_SPACE), // trigger 1: spacebar
+                new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); // trigger 2: left-button click
+        inputManager.addMapping("Move",
+                new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)); // trigger 2: left-button click
+        inputManager.addListener(mouseActionListener, "Shoot");
+        inputManager.addListener(mouseActionListener, "Move");
 
-	//we dont need that "rendermanager", we define our own cylce in @see simpleRender
+        //we dont need that "rendermanager", we define our own cylce in @see simpleRender
 
-	renderManager.removeMainView(viewPort);
-	renderManager.removePostView(guiViewPort);
+        renderManager.removeMainView(viewPort);
+        renderManager.removePostView(guiViewPort);
 
-	blackMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-	blackMaterial.setColor("Color", ColorRGBA.Black);
+        blackMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        blackMaterial.setColor("Color", ColorRGBA.Black);
 
-	Geometry quad = new Geometry("box", new Quad(settings.getWidth(), settings.getHeight()));
+        Geometry quad = new Geometry("box", new Quad(settings.getWidth(), settings.getHeight()));
 
 
-	Torus mesh = new Torus(100, 100, 0.2f, 1.5f);
-	torus = new Geometry("A shape", mesh); // wrap shape into geometry
-	mesh.scaleTextureCoordinates(new Vector2f(0.5f, .5f));
-	Material mat = new Material(assetManager,
-		"Common/MatDefs/Misc/Unshaded.j3md");
-	Texture cube1Tex = assetManager.loadTexture(
-		"Textures/steel.jpg");
-	cube1Tex.setWrap(Texture.WrapMode.Repeat);
-	mat.setTexture("ColorMap", cube1Tex);
+        Torus mesh = new Torus(100, 100, 0.2f, 1.5f);
+        torus = new Geometry("A shape", mesh); // wrap shape into geometry
+        mesh.scaleTextureCoordinates(new Vector2f(0.5f, .5f));
+        Material mat = new Material(assetManager,
+                "Common/MatDefs/Misc/Unshaded.j3md");
+        Texture cube1Tex = assetManager.loadTexture(
+                "Textures/steel.jpg");
+        cube1Tex.setWrap(Texture.WrapMode.Repeat);
+        mat.setTexture("ColorMap", cube1Tex);
 
-	torus.move(0, 0, 0f);
-	torus.setMaterial(mat);                         // assign material to geometry
+        torus.move(0, 0, 3f);
+        torus.setMaterial(mat);                         // assign material to geometry
 // if you want, transform (move, rotate, scale) the geometry.
-	rootNode.attachChild(torus);
+        rootNode.attachChild(torus);
 
 
 
 
-	GodrayLight l3 = new GodrayLight(settings, cam, assetManager, rootNode, guiNode);
-	godrayLights.add(l3);
-	rootNode.attachChild(l3);
-	clickAbles.attachChild(l3);
+        GodrayLight l3 = new GodrayLight(settings, cam, assetManager, rootNode, guiNode);
+        l3.move(0, 0, 3f);
+        godrayLights.add(l3);
+        rootNode.attachChild(l3);
+        clickAbles.attachChild(l3);
 
 
 
 
-	// attach geometry to a node
+        // attach geometry to a node
 
 
 
-	quad.setMaterial(combinedMaterial);
-	quad.setLocalTranslation(new Vector3f(0, 0, -1000));
-	// guiNode.attachChild(quad);
+        quad.setMaterial(combinedMaterial);
+        quad.setLocalTranslation(new Vector3f(0, 0, -1000));
+        // guiNode.attachChild(quad);
 
-	elephant = assetManager.loadModel("Models/Class II Gallactic Cruiser.j3o");
-	elephant.setLocalScale(0.01f);
-	elephant.move(new Vector3f(3, 3, 3));
-	elephant.setUserData("ID", "fuckyou");
-	elephant.addControl(new ShipController());
-	clickAbles.attachChild(elephant);
+        elephant = assetManager.loadModel("Models/Class II Gallactic Cruiser.j3o");
+        elephant.setLocalScale(0.01f);
+        elephant.move(new Vector3f(3, 3, 3));
+        elephant.setUserData("ID", "fuckyou");
+        elephant.addControl(new ShipController());
+        clickAbles.attachChild(elephant);
 
-	PointLight sun = new PointLight();
-	sun.setPosition(new Vector3f(0, 0, 5));
+        PointLight sun = new PointLight();
+        sun.setPosition(new Vector3f(0, 0, 5));
 
-	//sun.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f).normalizeLocal());
-	rootNode.addLight(sun);
+        //sun.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f).normalizeLocal());
+        rootNode.addLight(sun);
 
 
-	stateManager.attach(new Menu());
-	emitterTransfer();
+        stateManager.attach(new Menu());
+        emitterTransfer();
 
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-	torus.rotate(tpf, tpf, tpf);
-	for (GodrayLight g : godrayLights) {
-	    g.update(tpf);
-	}
-	//debris.emitAllParticles();
+        torus.rotate(tpf, tpf, tpf);
+        for (GodrayLight g : godrayLights) {
+            g.update(tpf);
+        }
+        //debris.emitAllParticles();
     }
 
     @Override
     public void simpleRender(RenderManager rm) {
-	//render our scene normally (all attached stuff from the rootnode)
-	renderManager.renderViewPort(viewPort, speed);
-	geometries.clear();
-	getGeometries(rootNode, geometries);
-	for (GodrayLight godrayLight : godrayLights) {
-	    for (Geometry g : geometries) {
-		godrayMatarialBuffer.put(g, g.getMaterial());
-		g.setMaterial(blackMaterial);
-	    }
-	    godrayLight.getGeometry().setMaterial(godrayMatarialBuffer.get(godrayLight.getGeometry()));
-	    renderManager.renderViewPort(godrayLight.getViewPort(), speed);
-	    for (Geometry g : geometries) {
-		g.setMaterial(godrayMatarialBuffer.get(g));
-	    }
-	    godrayMatarialBuffer.clear();
-	}
-	renderManager.renderViewPort(guiViewPort, speed);
+        //render our scene normally (all attached stuff from the rootnode)
+        renderManager.renderViewPort(viewPort, speed);
+        geometries.clear();
+        getGeometries(rootNode, geometries);
+        for (GodrayLight godrayLight : godrayLights) {
+            for (Geometry g : geometries) {
+                godrayMatarialBuffer.put(g, g.getMaterial());
+                g.setMaterial(blackMaterial);
+            }
+            godrayLight.getGeometry().setMaterial(godrayMatarialBuffer.get(godrayLight.getGeometry()));
+            renderManager.renderViewPort(godrayLight.getViewPort(), speed);
+            for (Geometry g : geometries) {
+                g.setMaterial(godrayMatarialBuffer.get(g));
+            }
+            godrayMatarialBuffer.clear();
+        }
+        renderManager.renderViewPort(guiViewPort, speed);
     }
 
     private void getGeometries(Spatial spatial, ArrayList<Geometry> geometries) {
 
-	if (spatial instanceof Geometry) {
-	    geometries.add((Geometry) spatial);
-	} else {
-	    Node n = (Node) spatial;
-	    for (Spatial s : n.getChildren()) {
-		getGeometries(s, geometries);
-	    }
+        if (spatial instanceof Geometry) {
+            geometries.add((Geometry) spatial);
+        } else {
+            Node n = (Node) spatial;
+            for (Spatial s : n.getChildren()) {
+                getGeometries(s, geometries);
+            }
 
-	}
+        }
     }
 
     private void emitterTransfer() {
-	// init colors
+        // init colors
 
 
 
-	debris =
-		new ParticleEmitter("Debris", ParticleMesh.Type.Triangle, 10000);
-	Material debris_mat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
-	debris_mat.getAdditionalRenderState().setBlendMode(BlendMode.AlphaAdditive);
-	debris_mat.setTexture("Texture", assetManager.loadTexture("Textures/lavatile.jpg"));
-	debris.setMaterial(debris_mat);
+        debris =
+                new ParticleEmitter("Debris", ParticleMesh.Type.Triangle, 10000);
+        Material debris_mat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
+        debris_mat.getAdditionalRenderState().setBlendMode(BlendMode.AlphaAdditive);
+        debris_mat.setTexture("Texture", assetManager.loadTexture("Textures/lavatile.jpg"));
+        debris.setMaterial(debris_mat);
 
-	//debris.setImagesX(20);
-	//debris.setImagesY(20); // 3x3 texture animation
-	//debris.setRotateSpeed(4);
-	debris.setStartSize(0.05f);
-	debris.setEndSize(0.01f);
-	debris.setLowLife(0.1f);
-	debris.setHighLife(0.8f);
-	debris.setFacingVelocity(true);
-	debris.setSelectRandomImage(true);
-	debris.getParticleInfluencer().setInitialVelocity(new Vector3f(2f, 0f, 0));
-	debris.setStartColor(ColorRGBA.White);
-	debris.setEndColor(ColorRGBA.White);
-	//debris.setGravity(1f, 0.0f, 0);
-	debris.setParticlesPerSec(0f);
-	//node.addControl(new ParticelEmitterControl(800));
-	debris.getParticleInfluencer().setVelocityVariation(1.0f);
-	debris.setGravity(0, 0, 0);
-	rootNode.attachChild(debris);
+        //debris.setImagesX(20);
+        //debris.setImagesY(20); // 3x3 texture animation
+        //debris.setRotateSpeed(4);
+        debris.setStartSize(0.05f);
+        debris.setEndSize(0.01f);
+        debris.setLowLife(0.1f);
+        debris.setHighLife(0.8f);
+        debris.setFacingVelocity(true);
+        debris.setSelectRandomImage(true);
+        debris.getParticleInfluencer().setInitialVelocity(new Vector3f(2f, 0f, 0));
+        debris.setStartColor(ColorRGBA.White);
+        debris.setEndColor(ColorRGBA.White);
+        //debris.setGravity(1f, 0.0f, 0);
+        debris.setParticlesPerSec(0f);
+        //node.addControl(new ParticelEmitterControl(800));
+        debris.getParticleInfluencer().setVelocityVariation(1.0f);
+        debris.setGravity(0, 0, 0);
+        rootNode.attachChild(debris);
 
-	rootNode.attachChild(rootNode);
+        rootNode.attachChild(rootNode);
 
 
-	debris.setBatchHint(Spatial.BatchHint.Always);
+        debris.setBatchHint(Spatial.BatchHint.Always);
 
-	debris.emitAllParticles();
+        debris.emitAllParticles();
 
-	debris.move(0, 8f, 0);
-	//rootNode.detachChild(debris);
+        debris.move(0, 8f, 0);
+        //rootNode.detachChild(debris);
     }
 }
