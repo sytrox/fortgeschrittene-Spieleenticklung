@@ -8,6 +8,10 @@ package mygame;
  *
  * @author db-141205
  */
-//
-public class StationController {
+public class SpaceStation {
+
+    private SpaceStationController spaceStationController;
+
+    SpaceStation() {
+    }
 }
